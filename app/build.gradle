@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+
+android {
+    /**
+     * 编译版本
+     */
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    /**
+     * build工具配置
+     */
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    /**
+     * 默认配置
+     */
+    defaultConfig {
+        applicationId "com.zhuyongdi.learningnotes"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+    }
+    /**
+     * 编译配置
+     */
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    /**
+     * lint检查配置
+     */
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+        abortOnError false
+        checkReleaseBuilds false
+    }
+    /**
+     * 源文件设置
+     */
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.aar', '*.jar'], dir: 'libs')
+}
